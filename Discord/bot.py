@@ -97,4 +97,4 @@ async def test(ctx):
 async def clear(ctx, amount=5):
 	await ctx.channel.purge(limit=amount)
 
-client.run('ODMwMjMzNTQ2MTY5Mzg0OTkw.YHDtPg.Wpkns7gLuqaFa1vm9xTCBbY6BN0')
+client.run('TOKEN')
