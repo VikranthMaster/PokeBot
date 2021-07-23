@@ -25,39 +25,10 @@ class Pokemon(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("Pokemon Cog ready!")
-
-    # @commands.command()
-    # async def start(self,ctx):
-    #     pokemon_name = randnum('pokemon.txt')
-    #     print(f"{pokemon_name}")
-    #     pokemon = pypokedex.get(name=pokemon_name)
-    #     http = urllib3.PoolManager()
-    #     response = http.request('GET', pokemon.sprites.front.get('default'))
-    #     image = PIL.Image.open(BytesIO(response.data))
-    #     img = image.save("pokemon.png")
-    #     with open("pokemon.png","rb") as fp:
-    #         print("All is working good")
-    #         await ctx.send(file = discord.File(fp, "pokemon.png"))
-        
-    #     await ctx.channel.send("Whos that pokemon")
-    #     try:
-    #         msg = await self.client.wait_for(
-    #             "message",
-    #             timeout=10,
-    #             check=lambda m : m.author == ctx.author and m.channel == ctx.channel
-    #         )
-    #         if msg.content.lower() == pokemon_name:
-    #             await ctx.send("You guessed it correct! :partying_face:")
-    #     except asyncio.TimeoutError:
-    #         await ctx.send("Ouch! that pokemon name is {}".format(pokemon_name))
-    #         embed = discord.Embed(color = discord.Color.blue())
-    #         embed.add_field(name = f"**{pokemon.name}**", value = f"Showing Stats for {pokemon.name}", inline=False)
-    #         embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author}")
-    #         await ctx.send(embed=embed)
     
     @commands.Cog.listener()
     async def on_message(self, message):
-        time.sleep(random.choice(seq))
+        #time.sleep(random.choice(seq))
         if (message.author.bot):
             return
         else:
@@ -66,11 +37,16 @@ class Pokemon(commands.Cog):
             pokemon = pypokedex.get(name=pokemon_name)
             http = urllib3.PoolManager()
             response = http.request('GET', pokemon.sprites.front.get('default'))
+            print(response)
             image = PIL.Image.open(BytesIO(response.data))
             img = image.save("pokemon.png")
             with open("pokemon.png","rb") as fp:
                 print("All is working good")
-                await message.channel.send(file = discord.File(fp, "pokemon.png"))
+                file = discord.File(fp, "pokemon.png")
+                embed = discord.Embed(color = discord.Color.blue())
+                embed.set_image(url=file)
+                await message.channel.send(embed=embed)
+                # await message.channel.send(file = discord.File(fp, "pokemon.png"))
             
             await message.channel.send("Whos that pokemon")
             try:
@@ -83,11 +59,6 @@ class Pokemon(commands.Cog):
                     await message.channel.send("You guessed it correct! :partying_face:")
             except asyncio.TimeoutError:
                 await message.channel.send("Ouch! that pokemon name is {}".format(pokemon_name))
-                embed = discord.Embed(color = discord.Color.blue())
-                embed.add_field(name = f"**{pokemon.name}**", value = f"Showing Stats for {pokemon.name}", inline=False)
-                embed.set_footer(icon_url = ctx.author.avatar_url, text = f"Requested by {ctx.author}")
-                await message.channel.send(embed=embed)
-
 
 
     @commands.command()
