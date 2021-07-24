@@ -22,4 +22,4 @@ except FileNotFoundError:
 async def clear(ctx, amount=5):
 	await ctx.channel.purge(limit=amount)
 
-client.run('ODAxMDEyODc4OTM2NzY4NTIy.YAafYA.lE5bR-fdduCm71lOgUla9bTScHo')
+client.run('TOKEn')
