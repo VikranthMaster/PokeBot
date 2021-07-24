@@ -8,9 +8,15 @@ client = commands.Bot(command_prefix=".")
 async def on_ready():
     print("Bot ready")
 
-for filename in os.listdir("cogs"):
-    if filename.endswith(".py"):
-        client.load_extension(f"cogs.{filename[:-3]}")
+try:
+    for filename in os.listdir("Coding Files/Python/PokeBot/cogs"):
+        if filename.endswith(".py"):
+            client.load_extension(f"cogs.{filename[:-3]}")
+
+except FileNotFoundError:
+    for filename in os.listdir("cogs"):
+        if filename.endswith(".py"):
+            client.load_extension(f"cogs.{filename[:-3]}")
 
 @client.command()
 async def clear(ctx, amount=5):
